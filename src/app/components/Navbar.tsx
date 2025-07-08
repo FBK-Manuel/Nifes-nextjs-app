@@ -17,7 +17,7 @@ import { TbUsersGroup } from "react-icons/tb";
 const items: MenuProps["items"] = [
   {
     key: "1",
-    label: <Link href="/gallery">Gallary</Link>,
+    label: <Link href="/gallary">Gallary</Link>,
   },
 
   {
