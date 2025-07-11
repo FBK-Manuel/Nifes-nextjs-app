@@ -3,11 +3,14 @@ import { db } from "../../lib/firebase";
 import Image from "next/image";
 import { format } from "date-fns";
 import { notFound } from "next/navigation";
-import { Props } from "../../types/datatypes";
 import Link from "next/link";
 import { TiArrowForward } from "react-icons/ti";
 
-export default async function EventDetailPage({ params }: Props) {
+export default async function EventDetailPage({
+  params,
+}: {
+  params: { id: string };
+}) {
   const docRef = doc(db, "events", params.id);
   const docSnap = await getDoc(docRef);
 
