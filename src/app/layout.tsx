@@ -33,18 +33,18 @@ export const metadata: Metadata = {
   authors: [
     {
       name: "NIFES Atani Family",
-      url: "https://nifes.org.ng",
+      url: "https://nifes.org.ng", // to be eddited with the right domain later on
     },
   ],
   creator: "NIFES Atani Family",
   openGraph: {
     title: "NIFES Atani Family",
     description: "NIFES Atani Family Leadership Camping Retreat",
-    url: "https://nifes.org.ng",
+    url: "https://nifes.org.ng", // to be eddited with the right domain later on
     siteName: "NIFES Atani Family",
     images: [
       {
-        url: "https://nifes.org.ng/logo.png",
+        url: "https://nifes.org.ng/logo.png", // to be eddited with the right domain later on
         width: 1200,
         height: 630,
         alt: "NIFES Atani Family Logo",

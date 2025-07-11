@@ -62,7 +62,7 @@ export default function Footer() {
             </li>
             <li>
               <Link
-                href="/gallery"
+                href="/gallary"
                 className="text-gray-600 hover:text-[#e5408f]"
               >
                 Gallery
@@ -70,7 +70,7 @@ export default function Footer() {
             </li>
             <li>
               <Link
-                href="/events"
+                href="/upcoming-events"
                 className="text-gray-600 hover:text-[#e5408f]"
               >
                 Upcoming Events
@@ -78,7 +78,7 @@ export default function Footer() {
             </li>
             <li>
               <Link
-                href="/members"
+                href="/reunion-members"
                 className="text-gray-600 hover:text-[#e5408f]"
               >
                 Registered-Members

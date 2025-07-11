@@ -10,3 +10,19 @@ export type RegisterFormData = {
   level: string;
   fellowship: string;
 };
+
+export type EventCardProps = {
+  id: string;
+  title: string;
+  content: string;
+  imageUrl: string;
+  createdAt: Date;
+  eventDate: Date;
+  check: number;
+};
+
+export type Props = {
+  params: {
+    id: string;
+  };
+};

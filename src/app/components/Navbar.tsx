@@ -40,7 +40,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className=" border-b bg-white">
+    <div className=" border-b bg-[#202650] sm:text-gray-800 md:text-gray-900 lg:text-gray-200">
       <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
         {/* Logo */}
         <Link href="/" className="text-xl font-bold text-gray-900">
@@ -99,7 +99,7 @@ export default function Navbar() {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-gray-800"
+          className="md:hidden text-white"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle Menu"
         >
