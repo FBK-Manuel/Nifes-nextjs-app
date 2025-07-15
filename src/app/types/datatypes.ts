@@ -21,8 +21,13 @@ export type EventCardProps = {
   check: number;
 };
 
-export type Props = {
-  params: {
-    id: string;
-  };
+export type PassedEventCardProps = {
+  id: string;
+  title: string;
+  content: string;
+  imageUrl: string;
+  createdAt: Date;
+  eventDate: Date;
+  movedAt: Date;
+  check: number;
 };

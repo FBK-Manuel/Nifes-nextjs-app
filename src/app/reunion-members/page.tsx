@@ -11,7 +11,7 @@ export default function ReunionMembers() {
             <li>
               <Link
                 href="/retreat-members"
-                className="text-gray-600 hover:text-[#e5408f]"
+                className="text-gray-600 hover:text-[#e5408f] hover:shadow-2xl bg-white rounded-2xl px-4 py-2"
               >
                 Retreat Members
               </Link>
@@ -19,7 +19,7 @@ export default function ReunionMembers() {
             <li>
               <Link
                 href="/reunion-members"
-                className="text-gray-600 hover:text-[#e5408f]"
+                className="text-gray-600 hover:text-[#e5408f] hover:shadow-2xl bg-white rounded-2xl px-4 py-2"
               >
                 Reunion members
               </Link>

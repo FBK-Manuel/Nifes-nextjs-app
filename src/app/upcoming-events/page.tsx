@@ -3,8 +3,10 @@ import { db } from "../lib/firebase";
 
 import UpcomingEventsTable from "../components/UpcomingEventsTable";
 import { BsTrash3Fill } from "react-icons/bs";
+import { cleanupExpiredEvents } from "../lib/cleanupEvents";
 
 export default async function EventsPage() {
+  await cleanupExpiredEvents(); // Clean up expired events before rendering
   const q = query(collection(db, "events"), orderBy("createdAt", "desc"));
   const querySnapshot = await getDocs(q);
 

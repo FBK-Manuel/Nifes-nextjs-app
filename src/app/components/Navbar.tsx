@@ -24,14 +24,21 @@ const items: MenuProps["items"] = [
     type: "divider",
   },
   {
-    key: "3",
+    key: "2",
     label: <Link href="/upcoming-events">Upcoming Events</Link>,
   },
   {
     type: "divider",
   },
   {
-    key: "7",
+    key: "3",
+    label: <Link href="/passed-events">Passed Events</Link>,
+  },
+  {
+    type: "divider",
+  },
+  {
+    key: "4",
     label: <Link href="/associates">Our Associates</Link>,
   },
 ];
@@ -109,12 +116,12 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden bg-white border-t">
+        <div className="md:hidden bg-gray-300 border-t">
           <ul className="flex flex-col space-y-2 px-4 py-4">
             <li>
               <Link
                 href="/"
-                className="block py-2 hover:text-[#e5408f] flex items-center gap-1"
+                className="py-2 hover:text-[#e5408f] flex items-center gap-1"
               >
                 <RiHome3Line />
                 Home
@@ -134,7 +141,7 @@ export default function Navbar() {
             <li>
               <Link
                 href="/contact"
-                className="block py-2 hover:text-[#e5408f] flex items-center gap-1"
+                className="py-2 hover:text-[#e5408f] flex items-center gap-1"
               >
                 <GrContact />
                 Contact
@@ -143,7 +150,7 @@ export default function Navbar() {
             <li>
               <Link
                 href="/register"
-                className="block py-2 hover:text-[#e5408f] flex items-center gap-1"
+                className="py-2 hover:text-[#e5408f] flex items-center gap-1"
               >
                 <RiUserStarLine />
                 Register
