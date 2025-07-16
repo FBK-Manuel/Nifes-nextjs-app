@@ -6,10 +6,10 @@ import { notFound } from "next/navigation";
 // import { Props } from "../../types/datatypes";
 import { TiArrowForward } from "react-icons/ti";
 
-export default async function PassedEventPage({
+export default async function PastedEventsPage({
   params,
 }: {
-  params: Record<string, string>;
+  params: { id: string };
 }) {
   const docRef = doc(db, "passedEvents", params.id);
   const docSnap = await getDoc(docRef);
