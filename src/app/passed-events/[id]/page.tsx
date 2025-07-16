@@ -6,16 +6,20 @@ import { notFound } from "next/navigation";
 // import { Props } from "../../types/datatypes";
 import { TiArrowForward } from "react-icons/ti";
 
-export default async function PassedEventDetailPage(props: {
-  params: { id: string };
-}) {
-  const { id } = await props.params;
+type PassedEventPageProps = {
+  params: {
+    id: string;
+  };
+};
 
-  const docRef = doc(db, "passedEvents", id);
+export default async function PassedEventPage({
+  params,
+}: PassedEventPageProps) {
+  const docRef = doc(db, "passedEvents", params.id);
   const docSnap = await getDoc(docRef);
 
   if (!docSnap.exists()) {
-    notFound();
+    notFound(); // Show 404 if no event
   }
 
   const data = docSnap.data();
