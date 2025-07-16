@@ -7,12 +7,12 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { TiArrowForward } from "react-icons/ti";
 
-export default async function EventDetailPage(props: {
-  params: { id: string };
+export default async function EventDetailPage({
+  params,
+}: {
+  params: Record<string, string>;
 }) {
-  const { id } = await props.params;
-
-  const docRef = doc(db, "events", id);
+  const docRef = doc(db, "passedEvents", params.id);
   const docSnap = await getDoc(docRef);
 
   if (!docSnap.exists()) {
