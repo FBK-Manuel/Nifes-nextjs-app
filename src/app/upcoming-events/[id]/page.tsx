@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic"; // 👈 this is crucial
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../lib/firebase";
 import Image from "next/image";

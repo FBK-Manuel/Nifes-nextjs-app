@@ -1,9 +1,10 @@
+export const dynamic = "force-dynamic"; // 👈 this is crucial
+
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../lib/firebase";
 import Image from "next/image";
 import { format } from "date-fns";
 import { notFound } from "next/navigation";
-// import { Props } from "../../types/datatypes";
 import { TiArrowForward } from "react-icons/ti";
 
 export default async function PastedEventsPage({
