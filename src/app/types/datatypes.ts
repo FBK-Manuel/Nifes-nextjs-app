@@ -9,6 +9,7 @@ export type RegisterFormData = {
   department: string;
   level: string;
   fellowship: string;
+  assignedRoom?: string; // Optional field for assigned room
 };
 
 export type EventCardProps = {

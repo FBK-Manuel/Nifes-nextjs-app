@@ -71,9 +71,9 @@ export default function RetreatTable() {
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">
                   Fellowship
                 </th>
-                {/* <th className="px-4 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">
-                Status
-              </th> */}
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">
+                  Room
+                </th>
                 <th className="px-4 py-3"></th>
               </>
             </tr>
@@ -135,6 +135,9 @@ export default function RetreatTable() {
                   </td>
                   <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">
                     {user.fellowship}
+                  </td>
+                  <td className="px-4 py-3 whitespace-nowrap text-sm text-blue-500">
+                    {user.assignedRoom || "Not Assigned"}
                   </td>
                   <td className="px-4 py-3 whitespace-nowrap text-right text-sm font-medium">
                     <button className="text-blue-400 hover:underline">

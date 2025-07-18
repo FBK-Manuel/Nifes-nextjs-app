@@ -14,6 +14,7 @@ import axios from "axios";
 
 export default function RegisterForm() {
   const [profileImage, setProfileImage] = useState<string>(IMAGES.AVATER_2);
+  const [assignedRoom, setAssignedRoom] = useState<string>("");
   const [uploading, setUploading] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -49,6 +50,13 @@ export default function RegisterForm() {
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
+
+    if (name === "fellowship") {
+      const rooms = ["Room 1", "Room 2", "Room 3", "Room 4", "Room 5"];
+      const randomRoom = rooms[Math.floor(Math.random() * rooms.length)];
+      setAssignedRoom(randomRoom);
+    }
+
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -84,6 +92,7 @@ export default function RegisterForm() {
       await addDoc(collection(db, "register"), {
         ...formData,
         profileImage: imageUrl,
+        assignedRoom,
         createdAt: serverTimestamp(),
       });
       // profileImage: IMAGES.AVATER_2, // Reset to default image
@@ -100,6 +109,7 @@ export default function RegisterForm() {
       });
       setProfileImage(IMAGES.AVATER_2);
       setImageFile(null);
+
       Swal.fire({
         position: "top-end",
         icon: "success",
@@ -301,6 +311,11 @@ export default function RegisterForm() {
               <option value="Others">OTHERS</option>
             </select>
           </div>
+          {assignedRoom && (
+            <p className="text-sm mt-2 text-green-600 font-semibold">
+              Assigned Room: {assignedRoom}
+            </p>
+          )}
         </div>
 
         <div className="md:col-span-3 flex justify-end gap-3 mt-4">

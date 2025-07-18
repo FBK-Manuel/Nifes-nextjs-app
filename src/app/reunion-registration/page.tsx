@@ -10,7 +10,7 @@ export default function ReunionRegistration() {
             <li>
               <Link
                 href="/register"
-                className="text-gray-600 hover:text-[#e5408f] hover:shadow-2xl bg-white rounded-2xl px-4 py-2"
+                className="text-gray-600 hover:text-[#e5408f] text-xs sm:text-sm md:text-base lg:text-lg hover:shadow-2xl bg-white rounded-2xl px-4 py-2"
               >
                 Retreat Registration
               </Link>
@@ -18,7 +18,7 @@ export default function ReunionRegistration() {
             <li>
               <Link
                 href="/reunion-registration"
-                className="text-gray-600 hover:text-[#e5408f] hover:shadow-2xl bg-white rounded-2xl px-4 py-2"
+                className="text-gray-600 hover:text-[#e5408f] text-xs sm:text-sm md:text-base lg:text-lg hover:shadow-2xl bg-white rounded-2xl px-4 py-2"
               >
                 Reunion Registration
               </Link>
