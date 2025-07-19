@@ -151,7 +151,7 @@ export default function RegisterReForm() {
             onClick={handleImageClick}
             className="mt-4 text-[#e5408f] hover:underline hover:text-[#3e4095]"
           >
-            Replace image
+            Upload image
           </button>
           <input
             type="file"
@@ -165,7 +165,7 @@ export default function RegisterReForm() {
         <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm mb-1 text-[#3e4095]">
-              First name
+              First Name
             </label>
             <input
               name="firstName"
@@ -177,7 +177,7 @@ export default function RegisterReForm() {
           </div>
           <div>
             <label className="block text-sm mb-1 text-[#3e4095]">
-              Last name
+              Last Name
             </label>
             <input
               name="lastName"
