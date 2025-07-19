@@ -12,6 +12,8 @@ export const IMAGES = {
   AVATER_2: "/images/favicon.png",
   CONTACT_US: "/images/contact.png",
   ASSOCIATE: "/images/ass.jpg",
+  NOTFOUND: "/images/404.png",
+  ROBOT: "/images/robot.png",
 
   // images for student
   IMG0: "/images/img0.jpg",
