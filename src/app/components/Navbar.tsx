@@ -122,6 +122,7 @@ export default function Navbar() {
               <Link
                 href="/"
                 className="py-2 hover:text-[#e5408f] flex items-center gap-1"
+                onClick={() => setMenuOpen(!menuOpen)}
               >
                 <RiHome3Line />
                 Home
@@ -142,6 +143,7 @@ export default function Navbar() {
               <Link
                 href="/contact"
                 className="py-2 hover:text-[#e5408f] flex items-center gap-1"
+                onClick={() => setMenuOpen(!menuOpen)}
               >
                 <GrContact />
                 Contact
@@ -151,6 +153,7 @@ export default function Navbar() {
               <Link
                 href="/register"
                 className="py-2 hover:text-[#e5408f] flex items-center gap-1"
+                onClick={() => setMenuOpen(!menuOpen)}
               >
                 <RiUserStarLine />
                 Register
@@ -160,6 +163,7 @@ export default function Navbar() {
               <Link
                 href="/retreat-members"
                 className="hover:text-[#e5408f] flex items-center gap-1"
+                onClick={() => setMenuOpen(!menuOpen)}
               >
                 <TbUsersGroup />
                 Registered

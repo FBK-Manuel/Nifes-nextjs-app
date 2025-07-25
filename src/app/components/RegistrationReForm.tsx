@@ -5,14 +5,22 @@ import { useRef, useState } from "react";
 import { IMAGES } from "../constants/images";
 import Swal from "sweetalert2";
 import axios from "axios";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  where,
+  query,
+  getDocs,
+  serverTimestamp,
+} from "firebase/firestore";
 import { db } from "../lib/firebase";
 import { VscLoading } from "react-icons/vsc";
+import { useRouter } from "next/navigation";
 
 export default function RegisterReForm() {
   const [profileImage, setProfileImage] = useState<string>(IMAGES.AVATER_2);
   const [uploading, setUploading] = useState<boolean>(false);
-
+  const navigate = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [formData, setFormData] = useState({
@@ -34,8 +42,7 @@ export default function RegisterReForm() {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setProfileImage(imageUrl);
+      setProfileImage(URL.createObjectURL(file));
       setImageFile(file);
     } else {
       setProfileImage("");
@@ -52,10 +59,41 @@ export default function RegisterReForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const registerRef = collection(db, "register");
+    // 🔍 Check for existing email
+    const emailQuery = query(registerRef, where("email", "==", formData.email));
+    const emailSnapshot = await getDocs(emailQuery);
+
+    // 🔍 Check for existing phone
+    const phoneQuery = query(registerRef, where("phone", "==", formData.phone));
+    const phoneSnapshot = await getDocs(phoneQuery);
+
+    if (!emailSnapshot.empty || !phoneSnapshot.empty) {
+      let message = "";
+
+      if (!emailSnapshot.empty && !phoneSnapshot.empty) {
+        message = "Email and Phone number already exist.";
+      } else if (!emailSnapshot.empty) {
+        message = "Email already exists.";
+      } else if (!phoneSnapshot.empty) {
+        message = "Phone number already exists.";
+      }
+
+      Swal.fire({
+        icon: "error",
+        title: "Duplicate Entry",
+        text: message,
+      });
+
+      setUploading(false);
+      return;
+    }
+
     console.log("Form submitted:", formData, imageFile);
     // Add your save logic here
 
-    if (!profileImage && !imageFile) {
+    if (!imageFile) {
       Swal.fire({
         icon: "error",
         title: "No Image Selected",
@@ -79,7 +117,7 @@ export default function RegisterReForm() {
 
       const imageUrl = cloudinaryRes.data.secure_url; // Get the uploaded image URL
 
-      await addDoc(collection(db, "reunion"), {
+      await addDoc(registerRef, {
         ...formData,
         profileImage: imageUrl,
         createdAt: serverTimestamp(),
@@ -104,8 +142,11 @@ export default function RegisterReForm() {
         title: "Application Successful",
         text: "Your application has been submitted successfully.",
         showConfirmButton: false,
-        timer: 5000,
+        timer: 4000,
       });
+      setTimeout(() => {
+        navigate.push("/reunion-members");
+      }, 4000);
     } catch (error) {
       console.error("Error adding post:", error);
       console.error("Error saving registration:", error);
@@ -155,10 +196,10 @@ export default function RegisterReForm() {
           </button>
           <input
             type="file"
-            ref={fileInputRef}
             accept="image/*"
-            onChange={handleImageChange}
             className="hidden"
+            onChange={handleImageChange}
+            ref={fileInputRef}
           />
         </div>
 
@@ -305,7 +346,7 @@ export default function RegisterReForm() {
             {uploading ? (
               <VscLoading className="animate-spin text-white text-2xl" />
             ) : (
-              "Save Changes"
+              "Submit"
             )}
           </button>
         </div>

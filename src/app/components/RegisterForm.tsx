@@ -5,18 +5,27 @@ import { useRef, useState } from "react";
 import { IMAGES } from "../constants/images";
 
 import { db } from "../lib/firebase";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  where,
+  query,
+  getDocs,
+  serverTimestamp,
+} from "firebase/firestore";
 // import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 // import { v4 as uuidv4 } from "uuid";
 import { VscLoading } from "react-icons/vsc";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export default function RegisterForm() {
   const [profileImage, setProfileImage] = useState<string>(IMAGES.AVATER_2);
   const [assignedRoom, setAssignedRoom] = useState<string>("");
   const [uploading, setUploading] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const navigate = useRouter();
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -37,8 +46,7 @@ export default function RegisterForm() {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setProfileImage(imageUrl);
+      setProfileImage(URL.createObjectURL(file));
       setImageFile(file);
     } else {
       setProfileImage("");
@@ -65,7 +73,7 @@ export default function RegisterForm() {
     console.log("Form submitted:", formData, imageFile);
     // Add your save logic here
 
-    if (!profileImage && !imageFile) {
+    if (!imageFile) {
       Swal.fire({
         icon: "error",
         title: "No Image Selected",
@@ -76,6 +84,42 @@ export default function RegisterForm() {
     setUploading(true);
 
     try {
+      const registerRef = collection(db, "register");
+      // 🔍 Check for existing email
+      const emailQuery = query(
+        registerRef,
+        where("email", "==", formData.email)
+      );
+      const emailSnapshot = await getDocs(emailQuery);
+
+      // 🔍 Check for existing phone
+      const phoneQuery = query(
+        registerRef,
+        where("phone", "==", formData.phone)
+      );
+      const phoneSnapshot = await getDocs(phoneQuery);
+
+      if (!emailSnapshot.empty || !phoneSnapshot.empty) {
+        let message = "";
+
+        if (!emailSnapshot.empty && !phoneSnapshot.empty) {
+          message = "Email and Phone number already exist.";
+        } else if (!emailSnapshot.empty) {
+          message = "Email already exists.";
+        } else if (!phoneSnapshot.empty) {
+          message = "Phone number already exists.";
+        }
+
+        Swal.fire({
+          icon: "error",
+          title: "Duplicate Entry",
+          text: message,
+        });
+
+        setUploading(false);
+        return;
+      }
+
       // Upload to Cloudinary
       const formDataUpload = new FormData();
       formDataUpload.append("file", imageFile!);
@@ -89,7 +133,7 @@ export default function RegisterForm() {
 
       const imageUrl = cloudinaryRes.data.secure_url; // Get the uploaded image URL
 
-      await addDoc(collection(db, "register"), {
+      await addDoc(registerRef, {
         ...formData,
         profileImage: imageUrl,
         assignedRoom,
@@ -116,8 +160,12 @@ export default function RegisterForm() {
         title: "Application Successful",
         text: "Your application has been submitted successfully.",
         showConfirmButton: false,
-        timer: 5000,
+        timer: 4000,
       });
+
+      setTimeout(() => {
+        navigate.push("/retreat-members");
+      }, 4000);
     } catch (error) {
       console.error("Error adding post:", error);
       console.error("Error saving registration:", error);
@@ -167,11 +215,10 @@ export default function RegisterForm() {
           </button>
           <input
             type="file"
-            ref={fileInputRef}
             accept="image/*"
-            onChange={handleImageChange}
             className="hidden"
-            required
+            onChange={handleImageChange}
+            ref={fileInputRef}
           />
         </div>
 
@@ -333,7 +380,7 @@ export default function RegisterForm() {
             {uploading ? (
               <VscLoading className="animate-spin text-white text-2xl" />
             ) : (
-              "Save Changes"
+              "Submit"
             )}
           </button>
         </div>
